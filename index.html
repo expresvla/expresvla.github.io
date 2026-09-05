@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="ExpReS-VLA specializes vision-language-action models on-device with compressed experience replay and retrieval-augmented training. Accepted to ICRA 2025.">
+  <meta name="keywords" content="ExpReS-VLA, VLA, experience replay, RAG, ICRA">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ExpReS-VLA: Specializing Vision-Language-Action Models Through Experience Replay and Retrieval</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://momentum-robotics-lab.github.io/">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://momentum-robotics-lab.github.io/">
+            Momentum Robotics Lab
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">ExpReS-VLA: Specializing Vision-Language-Action Models Through Experience Replay and Retrieval</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://shahramnajamsyed.com/">Shahram Najam Syed</a><sup>1*</sup>,</span>
+            <span class="author-block">
+              <a href="https://yatharthahuja.github.io/">Yatharth Ahuja</a><sup>1*</sup>,</span>
+            <span class="author-block">
+              <a href="https://arthurjakobsson.com">Arthur Jakobsson</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://ichnow.ski/">Jeffrey Ichnowski</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Robotics Institute, Carnegie Mellon University</span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block publication-venue">Accepted to ICRA 2025</span>
+          </div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block">IEEE International Conference on Robotics and Automation 2025</span>
+          </div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block"><sup>*</sup>Equal contribution</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2511.06202"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2511.06202"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#video"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://momentum-robotics-lab.github.io/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-home"></i>
+                  </span>
+                  <span>Lab</span>
+                </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/teaser.png" alt="ExpReS-VLA pipeline from RGB and language prompt through frozen OpenVLA, RAG, replay buffer, and policy to a Franka arm.">
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">ExpReS-VLA</span> specializes a VLA on-device with compressed experience replay and RAG.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <img src="./static/images/task-mug.jpg" alt="Place white mug in bowl.">
+        </div>
+        <div class="item">
+          <img src="./static/images/task-bowls.jpg" alt="Stack all bowls.">
+        </div>
+        <div class="item">
+          <img src="./static/images/task-push.jpg" alt="Push gray bowl near gray glass.">
+        </div>
+        <div class="item">
+          <img src="./static/images/task-knock.jpg" alt="Knock Pringles can.">
+        </div>
+        <div class="item">
+          <img src="./static/images/task-cans.jpg" alt="Move 7UP next to Pepsi.">
+        </div>
+        <div class="item">
+          <img src="./static/images/libero-long.jpg" alt="LIBERO long-horizon suite.">
+        </div>
+        <div class="item">
+          <img src="./static/images/libero-object.jpg" alt="LIBERO object suite.">
+        </div>
+        <div class="item">
+          <img src="./static/images/libero-spatial.jpg" alt="LIBERO spatial suite.">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Vision-language-action models generalize broadly, but a deployed robot needs reliable
+            performance on a few tasks in one environment.
+            <span class="dnerf">ExpReS-VLA</span> adapts a pretrained VLA on-device with a
+            compressed replay buffer and retrieval-augmented training, without catastrophic forgetting.
+          </p>
+          <p>
+            Frozen SigLIP and DINOv2 embeddings cut storage by 97% versus raw image-action pairs.
+            Cosine RAG injects the most similar past successes and failures into each batch.
+            Thresholded Hybrid Contrastive Loss (THCL) learns from unsuccessful attempts.
+            Adaptation takes 31 seconds from 12 demonstrations on one RTX 5090.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered" id="video">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video video-slot">
+          <img src="./static/images/task-mug.jpg" alt="Video coming soon.">
+          <p class="video-slot-label">Video coming soon</p>
+        </div>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+
+      <!-- Method. -->
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Method</h2>
+          <p>
+            A frozen encoder writes experiences into a dual success/failure buffer.
+            Top-k retrieval and a prioritizer update the policy on an edge GPU.
+          </p>
+          <img src="./static/images/architecture.png" alt="ExpReS-VLA system architecture.">
+        </div>
+      </div>
+      <!--/ Method. -->
+
+      <!-- Results. -->
+      <div class="column">
+        <h2 class="title is-3">Results</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <p>
+              On LIBERO, spatial success rises from 82.6% to 93.1% and long-horizon from 61% to 72.3%.
+              On a Franka, in-distribution and OOD success both reach 98%.
+            </p>
+            <img src="./static/images/curve-spatial.jpg" alt="LIBERO spatial learning curves.">
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!--/ Results. -->
+
+    <!-- Tasks. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Physical tasks</h2>
+
+        <h3 class="title is-4">Franka evaluation</h3>
+        <div class="content has-text-justified">
+          <p>
+            Five manipulation tasks on a 7-DoF Franka Emika Panda.
+            Use the slider to step through the setups.
+          </p>
+        </div>
+        <div class="columns is-vcentered interpolation-panel">
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_start.jpg"
+                 class="interpolation-image"
+                 alt="Place mug task."/>
+            <p>Place mug</p>
+          </div>
+          <div class="column interpolation-video-column">
+            <div id="interpolation-image-wrapper">
+              Loading...
+            </div>
+            <input class="slider is-fullwidth is-large is-info"
+                   id="interpolation-slider"
+                   step="1" min="0" max="4" value="0" type="range">
+          </div>
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_end.jpg"
+                 class="interpolation-image"
+                 alt="Move cans task."/>
+            <p class="is-bold">Move 7UP</p>
+          </div>
+        </div>
+        <br/>
+
+        <h3 class="title is-4">LIBERO suites</h3>
+        <div class="content has-text-justified">
+          <p>
+            Long-horizon, object, goal, and spatial suites: 10 tasks each, 50 rollouts, 5 seeds.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="./static/images/libero-long.jpg" alt="LIBERO long-horizon workspace." width="75%">
+        </div>
+
+      </div>
+    </div>
+    <!--/ Tasks. -->
+
+
+    <!-- Related. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Related Links</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            This project is part of
+            <a href="https://momentum-robotics-lab.github.io/">Momentum Robotics Lab</a>
+            at Carnegie Mellon University's Robotics Institute.
+          </p>
+          <p>
+            Paper:
+            <a href="https://arxiv.org/abs/2511.06202">arXiv:2511.06202</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Related. -->
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{syed2025expresvla,
+  author    = {Syed, Shahram Najam and Ahuja, Yatharth and Jakobsson, Arthur and Ichnowski, Jeffrey},
+  title     = {ExpReS-VLA: Specializing Vision-Language-Action Models Through Experience Replay and Retrieval},
+  booktitle = {IEEE International Conference on Robotics and Automation (ICRA)},
+  year      = {2025},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/pdf/2511.06202">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://momentum-robotics-lab.github.io/" class="external-link">
+        <i class="fas fa-home"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            The page design is borrowed from the
+            <a href="https://github.com/nerfies/nerfies.github.io">Nerfies source code</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
